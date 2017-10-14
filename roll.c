@@ -20,7 +20,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include <time.h>
 #include <sys/random.h>
 
 #define IS_D(x)      (x == 'd' || x == 'D')
