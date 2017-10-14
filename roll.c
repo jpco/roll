@@ -97,8 +97,8 @@ int main(int argc, char **argv) {
         char buf[BUFSIZE];
         size_t ct;
         while ((ct = read(STDIN_FILENO, &buf, BUFSIZE-1)) > 0) {
-            roll(buf);
             buf[ct] = '\0';
+            roll(buf);
             printf("%s", buf);
         }
     } else {
