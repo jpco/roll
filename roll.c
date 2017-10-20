@@ -70,19 +70,20 @@ size_t roll_one(const char *const in, unsigned int *const out) {
     return i;
 }
 
-void roll(char *str) {
-    size_t len = strlen(str), wi = 0;
+void roll(char *in, char *out) {
+    size_t len = strlen(in), wi = 0;
     for (size_t ri = 0; ri < len; ri++) {
-        if (IS_D(str[ri]) || IS_DIGIT(str[ri])) {
+        char c = in[ri];
+        if (IS_D(c) || IS_DIGIT(c)) {
             unsigned int roll;
-            size_t res = roll_one(str + ri, &roll);
+            size_t res = roll_one(in + ri, &roll);
             if (res) {
                 ri += res - 1;
-                wi += sprintf(str + wi, "%d", roll);
-            } else str[wi++] = str[ri];
-        } else str[wi++] = str[ri];
+                wi += sprintf(out + wi, "%d", roll);
+            } else out[wi++] = c;
+        } else out[wi++] = c;
     }
-    str[wi] = '\0';
+    out[wi] = '\0';
 }
 
 void seed() {
@@ -98,14 +99,14 @@ int main(int argc, char **argv) {
         size_t ct;
         while ((ct = read(STDIN_FILENO, &buf, BUFSIZE-1)) > 0) {
             buf[ct] = '\0';
-            roll(buf);
+            roll(buf, buf);
             printf("%s", buf);
         }
     } else {
         // Extremely naughty! But saves on buffering logic.
         // TODO: Actually check this is safe :)
         for (int i = 2; i < argc; i++) *(argv[i]-1) = ' ';
-        roll(argv[1]);
+        roll(argv[1], argv[1]);
         printf("%s\n", argv[1]);
     }
 }
