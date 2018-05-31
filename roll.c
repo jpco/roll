@@ -103,10 +103,10 @@ int main(int argc, char **argv) {
             printf("%s", buf);
         }
     } else {
-        // Extremely naughty! But saves on buffering logic.
-        // TODO: Actually check this is safe :)
-        for (int i = 2; i < argc; i++) *(argv[i]-1) = ' ';
-        roll(argv[1], argv[1]);
-        printf("%s\n", argv[1]);
+        for (int i = 1; i < argc; i++) {
+            roll(argv[i], argv[i]);
+            printf((i > 1 ? " %s" : "%s"), argv[i]);
+        }
+        printf("\n");
     }
 }
