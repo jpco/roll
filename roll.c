@@ -16,6 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -23,7 +24,6 @@
 #include <sys/random.h>
 
 #define IS_D(x)      (x == 'd' || x == 'D')
-#define IS_DIGIT(x)  (x >= 0x30 && x < 0x3a)
 #define DIGIT_MIN    0x30
 #define BUFSIZE      4096
 
@@ -45,7 +45,7 @@ size_t roll_one(const char *const in, unsigned int *const out) {
     char c, roll = 0;
 
     for (; (c = in[i]); i++) {
-        if (IS_DIGIT(c)) {
+        if (isdigit(c)) {
             if (roll) {
                 roll &= ~D_LAST;
                 type = type * 10 + (c - DIGIT_MIN);
@@ -74,7 +74,7 @@ void roll(char *in, char *out) {
     size_t len = strlen(in), wi = 0;
     for (size_t ri = 0; ri < len; ri++) {
         char c = in[ri];
-        if (IS_D(c) || IS_DIGIT(c)) {
+        if (IS_D(c) || isdigit(c)) {
             unsigned int roll;
             size_t res = roll_one(in + ri, &roll);
             if (res) {
