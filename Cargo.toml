@@ -1,0 +1,15 @@
+[package]
+name = "rollerator"
+version = "0.1.0"
+authors = ["jpco <mail@jpco.io>"]
+
+[lib]
+name = "rollerator"
+path = "src/lib.rs"
+
+[[bin]]
+name = "roll"
+path = "src/main.rs"
+
+[dependencies]
+rand = "0.5.1"
